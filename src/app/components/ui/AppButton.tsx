@@ -14,6 +14,7 @@ const Button = styled.button`
 	color: var(--white-color);
 	border: 1px solid var(--main-color);
 	cursor: pointer;
+	transition: all 0.3s ease-in-out;
 
 	:hover {
 		opacity: 0.7;

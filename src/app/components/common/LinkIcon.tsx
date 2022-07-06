@@ -11,7 +11,7 @@ type IProps = {
 const Icon = styled.span`
 	font-size: 36px;
 	transition: all 0.3s ease-in-out;
-	margin-left: 10px;
+	margin: 10px;
 
 	:hover {
 		opacity: 0.7;

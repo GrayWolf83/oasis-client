@@ -4,6 +4,11 @@ import AppContainer from '../ui/AppContainer'
 import AppLogo from './AppLogo'
 import LinkIcon from './LinkIcon'
 
+const HeaderBlock = styled.header`
+	width: 100%;
+	background-color: var(--main-color);
+`
+
 const HeaderInner = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -18,7 +23,7 @@ const HeaderIcons = styled.div`
 
 const Header = () => {
 	return (
-		<div className='header'>
+		<HeaderBlock>
 			<AppContainer>
 				<HeaderInner>
 					<AppLogo />
@@ -42,7 +47,7 @@ const Header = () => {
 					</HeaderIcons>
 				</HeaderInner>
 			</AppContainer>
-		</div>
+		</HeaderBlock>
 	)
 }
 export default Header

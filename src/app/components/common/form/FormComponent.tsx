@@ -13,6 +13,16 @@ const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	width: 60%;
+	margin: 15px auto;
+
+	@media (max-width: 992px) {
+		width: 80%;
+	}
+
+	@media (max-width: 580px) {
+		width: 95%;
+	}
 `
 
 const FormComponent = ({
@@ -44,7 +54,7 @@ const FormComponent = ({
 					...child.props,
 					onChange: changeHandler,
 					value: data[child.props.name],
-					error: error[child.props.name],
+					error: error[child?.props?.name],
 				}
 
 				return React.cloneElement(child, config)

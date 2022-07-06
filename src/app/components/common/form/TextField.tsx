@@ -11,18 +11,9 @@ type IProps = {
 }
 
 const FieldBlock = styled.div`
-	width: 60%;
+	width: 100%;
 	height: 85px;
 	position: relative;
-	margin: 15px auto;
-
-	@media (max-width: 992px) {
-		width: 80%;
-	}
-
-	@media (max-width: 580px) {
-		width: 95%;
-	}
 `
 const FieldInput = styled.input`
 	width: calc(100% - 22px);
@@ -43,12 +34,17 @@ const FieldButton = styled.button`
 	bottom: 19px;
 	right: 0;
 	z-index: 5;
-	background-color: var(--white-color);
+	background-color: var(--main-color);
 	border: 1px solid var(--main-color);
 	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+
+	:hover {
+		opacity: 0.7;
+	}
 
 	span {
-		color: var(--main-color);
+		color: var(--white-color);
 	}
 `
 const FieldError = styled.p`
@@ -103,12 +99,11 @@ const TextField = ({
 					onClick={toggleShowPassword}
 					style={{
 						borderColor: `var(--${error ? 'red' : 'main'}-color)`,
+						backgroundColor: `var(--${
+							error ? 'red' : 'main'
+						}-color)`,
 					}}>
-					<span
-						className='material-icons'
-						style={{
-							color: `var(--${error ? 'red' : 'main'}-color)`,
-						}}>
+					<span className='material-icons'>
 						{showPassword ? 'visibility_off' : 'visibility'}
 					</span>
 				</FieldButton>
