@@ -1,10 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import FormComponent from '../../components/common/form/FormComponent'
 import TextField from '../../components/common/form/TextField'
 import LinkIcon from '../../components/common/LinkIcon'
 import PageTitle from '../../components/ui/PageTitle'
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppReduxHooks'
+import { getUserLoadedStatus, login } from '../../store/user'
 import { loginSchema } from '../../validate'
 
 const LoginLink = styled.p`
@@ -22,8 +24,24 @@ const LoginLink = styled.p`
 `
 
 const Login = () => {
+	const dispatch = useAppDispatch()
+	const navigate = useNavigate()
+	const isUserLoaded = useAppSelector(getUserLoadedStatus())
+
+	useEffect(() => {
+		if (isUserLoaded) {
+			navigate('/')
+		}
+	}, [isUserLoaded, navigate])
+
 	const handleSubmit = (data: { [key: string]: string }) => {
-		console.log('submit', data)
+		if (data?.email && data?.password) {
+			const send = {
+				email: data.email,
+				password: data.password,
+			}
+			dispatch(login(send))
+		}
 	}
 
 	return (

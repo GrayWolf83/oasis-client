@@ -1,8 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useAppSelector } from '../../hooks/useAppReduxHooks'
+import { getUser } from '../../store/user'
 import AppContainer from '../ui/AppContainer'
 import AppLogo from '../ui/AppLogo'
 import LinkIcon from './LinkIcon'
+import UserProfile from './UserProfile'
 
 const HeaderBlock = styled.header`
 	width: 100%;
@@ -22,6 +25,8 @@ const HeaderIcons = styled.div`
 `
 
 const Header = () => {
+	const user = useAppSelector(getUser())
+
 	return (
 		<HeaderBlock>
 			<AppContainer>
@@ -34,11 +39,15 @@ const Header = () => {
 							iconName='shopping_cart'
 							iconColor='white'
 						/>
-						<LinkIcon
-							path='/auth'
-							iconName='login'
-							iconColor='white'
-						/>
+						{user ? (
+							<UserProfile />
+						) : (
+							<LinkIcon
+								path='/auth'
+								iconName='login'
+								iconColor='white'
+							/>
+						)}
 					</HeaderIcons>
 				</HeaderInner>
 			</AppContainer>
