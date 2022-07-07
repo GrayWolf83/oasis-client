@@ -23,12 +23,12 @@ const AppLogo = () => {
 			<LogoInner>
 				<LogoImage>
 					<picture>
-						<source srcSet='logo.webp' type='image/webp' />
+						<source srcSet='/logo.webp' type='image/webp' />
 						<img
 							crossOrigin='anonymous'
 							width='100%'
 							height='auto'
-							src='logo.png'
+							src='/logo.png'
 							alt='logotype'
 						/>
 					</picture>

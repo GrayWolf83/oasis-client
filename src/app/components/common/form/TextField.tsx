@@ -5,7 +5,7 @@ type IProps = {
 	label: string
 	type: string
 	name: string
-	value: string | number
+	value?: string | number
 	onChange(value: { [key: string]: string }): void
 	error: string | null
 }
@@ -14,6 +14,7 @@ const FieldBlock = styled.div`
 	width: 100%;
 	height: 85px;
 	position: relative;
+	margin-bottom: 10px;
 `
 const FieldInput = styled.input`
 	width: calc(100% - 22px);
@@ -48,6 +49,7 @@ const FieldButton = styled.button`
 	}
 `
 const FieldError = styled.p`
+	font-size: 14px;
 	color: var(--red-color);
 `
 
@@ -83,7 +85,6 @@ const TextField = ({
 				type={showPassword ? 'text' : type}
 				id={name}
 				name={name}
-				value={value}
 				onChange={(e) => handleChange(e)}
 				autoComplete={name}
 				{...rest}

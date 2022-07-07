@@ -1,7 +1,74 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import FormComponent from '../../components/common/form/FormComponent'
+import TextField from '../../components/common/form/TextField'
+import LinkIcon from '../../components/common/LinkIcon'
+import PageTitle from '../../components/ui/PageTitle'
+import { signUpSchema } from '../../validate'
+
+const LoginLink = styled.p`
+	width: 60%;
+	margin: 10px auto 0;
+	text-align: right;
+
+	@media (max-width: 992px) {
+		width: 80%;
+	}
+
+	@media (max-width: 580px) {
+		width: 95%;
+	}
+`
 
 const SignUp = () => {
-	return <h2>SignUp page</h2>
+	const handleSubmit = (data: { [key: string]: string }) => {
+		console.log('submit', data)
+	}
+
+	return (
+		<>
+			<LinkIcon
+				path={'/auth'}
+				iconName='arrow_back'
+				iconColor='var(--main-color)'
+			/>
+			<PageTitle title='Регистрация' />
+
+			<FormComponent
+				validationShema={signUpSchema}
+				btnLabel='Отправить'
+				onSubmit={handleSubmit}>
+				<TextField
+					type='text'
+					name='name'
+					label='Имя'
+					value=''
+					onChange={() => console.log('change')}
+					error={null}
+				/>
+				<TextField
+					type='email'
+					name='email'
+					label='Email'
+					value=''
+					onChange={() => console.log('change')}
+					error={null}
+				/>
+				<TextField
+					type='password'
+					name='password'
+					label='Пароль'
+					value=''
+					onChange={() => console.log('change')}
+					error={null}
+				/>
+			</FormComponent>
+			<LoginLink>
+				<Link to='/auth'>Вход</Link>
+			</LoginLink>
+		</>
+	)
 }
 
 export default SignUp

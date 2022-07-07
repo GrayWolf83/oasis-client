@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
+// import * as yup from 'yup'
 import AppButton from '../../ui/AppButton'
 
 interface IProps {
-	initialData: { [key: string]: string }
+	initialData?: { [key: string]: string }
 	onSubmit: (data: { [key: string]: string }) => void
 	btnLabel: string
 	children: React.ReactNode
+	validationShema: any
 }
 
 const Form = styled.form`
@@ -30,9 +33,31 @@ const FormComponent = ({
 	onSubmit,
 	btnLabel,
 	children,
+	validationShema,
 }: IProps) => {
-	const [data, setData] = useState(initialData)
+	const [data, setData] = useState<{ [key: string]: string }>({})
 	const [error, setError] = useState<{ [key: string]: string }>({})
+
+	const validation = useCallback(() => {
+		validationShema
+			.validate(data)
+			.then(() => setError({}))
+			.catch((err: { message: { name: string; text: string } }) =>
+				setError({ [err.message.name]: err.message.text }),
+			)
+	}, [validationShema, data])
+
+	useEffect(() => {
+		if (initialData) {
+			setData(initialData)
+		}
+
+		return () => setData({})
+	}, [initialData])
+
+	useEffect(() => {
+		if (Object.keys(data).length) validation()
+	}, [data, validation])
 
 	const changeHandler = (value: { [key: string]: string }) => {
 		setData((prevState) => ({
@@ -43,8 +68,12 @@ const FormComponent = ({
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-
-		onSubmit(data)
+		validation()
+		if (!Object.keys(error).length && Object.keys(data).length) {
+			onSubmit(data)
+		} else {
+			toast.warning('Заполните все поля формы')
+		}
 	}
 
 	return (
