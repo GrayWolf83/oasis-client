@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import AppContainer from '../ui/AppContainer'
-import AppLogo from './AppLogo'
+import AppLogo from '../ui/AppLogo'
 import LinkIcon from './LinkIcon'
 
 const HeaderBlock = styled.header`
@@ -29,11 +29,6 @@ const Header = () => {
 					<AppLogo />
 
 					<HeaderIcons>
-						<LinkIcon
-							path='/manage'
-							iconName='settings'
-							iconColor='white'
-						/>
 						<LinkIcon
 							path='/cart'
 							iconName='shopping_cart'
