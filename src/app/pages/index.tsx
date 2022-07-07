@@ -6,6 +6,7 @@ import SignUp from './auth/signUp'
 import Client from './client'
 import Cart from './client/cart'
 import Home from './client/home'
+import Products from './client/products'
 import Manage from './manage'
 import Category from './manage/category'
 import Order from './manage/order'
@@ -26,6 +27,7 @@ const Pages = () => {
 			<Route path='/' element={<Client />}>
 				<Route index element={<Home />} />
 				<Route path='cart' element={<Cart />} />
+				<Route path='products/:id' element={<Products />} />
 			</Route>
 		</Routes>
 	)
