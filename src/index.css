@@ -20,6 +20,7 @@ body {
 	font-family: 'Merriweather', serif;
 	color: var(--main-color);
 	position: relative;
+
 }
 body {
 	min-height: 100vh;
@@ -48,4 +49,21 @@ h4 {
 
 .color-red {
 	color: var(--red-color);
+}
+
+::-webkit-scrollbar {
+    width: 8px; /* ширина для вертикального скролла */
+    height: 8px; /* высота для горизонтального скролла */
+    background-color: var(--white-color);
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: var(--main-color);
+    border-radius: 4em;
+    box-shadow: inset 1px 1px 10px #f3faf7;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--main-color);
 }

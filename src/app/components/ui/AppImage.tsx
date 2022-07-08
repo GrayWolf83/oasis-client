@@ -7,16 +7,18 @@ interface IProps {
 		imageWebp: string
 		name: string
 	}
+	width?: string
+	height?: string
 }
 
-const AppImage = ({ item }: IProps) => {
+const AppImage = ({ item, width, height }: IProps) => {
 	return (
 		<picture>
 			<source srcSet={config.PUBLIC + item.imageWebp} type='image/webp' />
 			<img
 				crossOrigin='anonymous'
-				width='100%'
-				height='auto'
+				width={width ? width : '100%'}
+				height={height ? height : 'auto'}
 				src={config.PUBLIC + item.image}
 				alt={item.name}
 			/>

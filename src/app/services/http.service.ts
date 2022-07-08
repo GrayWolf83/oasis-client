@@ -14,10 +14,14 @@ http.interceptors.request.use(
 		if (expiresDate) {
 			if (refreshToken && Number(expiresDate) < Date.now()) {
 				const data = await userService.refresh()
-				if (data?.message === 'Unautorized') {
+				if (data?.message === 'Вы не авторизованы') {
 					localStorageService.removeAuthData()
 				} else {
-					localStorageService.setTokens(data)
+					localStorageService.setTokens({
+						refreshToken: data.refreshToken,
+						accessToken: data.accessToken,
+						expiresIn: data.expiresIn,
+					})
 				}
 			}
 		}

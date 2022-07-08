@@ -6,7 +6,6 @@ import AppImage from '../ui/AppImage'
 
 type IProps = {
 	item: Category
-	key: number
 }
 
 const MenuItemBlock = styled.div`
@@ -19,6 +18,10 @@ const MenuItemBlock = styled.div`
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	box-shadow: 0px 8px 8px 0px rgba(34, 60, 80, 0.5);
+
+	:hover {
+		opacity: 0.7;
+	}
 `
 const MenuItemText = styled.div`
 	font-size: 22px;
@@ -34,7 +37,7 @@ const MenuListItem = ({ item }: IProps) => {
 	return (
 		<Link to={`/products/${item.id}`}>
 			<MenuItemBlock>
-				<AppImage item={item} />
+				<AppImage item={item} width='250px' height='170px' />
 				<MenuItemText>{item.name}</MenuItemText>
 			</MenuItemBlock>
 		</Link>

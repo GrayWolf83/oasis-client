@@ -22,8 +22,9 @@ const Icon = styled.span`
 
 const ProfileMenu = styled.ul`
 	position: absolute;
-	bottom: -100px;
+	bottom: -106px;
 	right: 0;
+	background-color: var(--white-color);
 	box-shadow: 0px 7px 8px 0px rgba(34, 60, 80, 0.2);
 	z-index: 3;
 
@@ -59,11 +60,11 @@ const UserProfile = () => {
 			{isOpen && (
 				<ProfileMenu>
 					{user?.role === 'manage' ? (
-						<li>
+						<li onClick={handleClick}>
 							<Link to='/manage'>Управление</Link>
 						</li>
 					) : (
-						<li>
+						<li onClick={handleClick}>
 							<Link to='/order'>Заказы</Link>
 						</li>
 					)}

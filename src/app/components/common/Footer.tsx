@@ -25,6 +25,10 @@ const FooterAddress = styled.div`
 const FooterText = styled.p`
 	color: var(--white-color);
 	margin: 5px;
+
+	@media (max-width: 360px) {
+		font-size: 14px;
+	}
 `
 
 const FooterContacts = styled.a`
@@ -32,6 +36,11 @@ const FooterContacts = styled.a`
 	align-items: center;
 	color: var(--white-color);
 	font-size: 20px;
+
+	@media (max-width: 360px) {
+		font-size: 16px;
+	}
+
 	span {
 		margin: 10px 5px;
 	}
