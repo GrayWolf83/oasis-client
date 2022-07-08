@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
-// import * as yup from 'yup'
 import AppButton from '../../ui/AppButton'
 
 interface IProps {

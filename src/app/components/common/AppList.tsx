@@ -6,6 +6,7 @@ import { Product } from '../../types/product'
 interface IProps {
 	items: Product[] | Category[]
 	children: React.ReactNode
+	column?: boolean
 }
 
 const AppListInner = styled.div`
@@ -18,9 +19,9 @@ const AppListInner = styled.div`
 	}
 `
 
-const AppList = ({ items, children }: IProps) => {
+const AppList = ({ items, children, column }: IProps) => {
 	return (
-		<AppListInner>
+		<AppListInner style={column ? { flexDirection: 'column' } : {}}>
 			{items.map((item) => {
 				return React.Children.map(children, (child: any) => {
 					const config = {

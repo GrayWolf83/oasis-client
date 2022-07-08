@@ -10,6 +10,7 @@ import Home from './client/home'
 import ClientOrder from './client/order'
 import Products from './client/products'
 import Manage from './manage'
+import AddCategory from './manage/addCategory'
 import Category from './manage/category'
 import ManageMenu from './manage/menu'
 import ManageOrder from './manage/order'
@@ -32,6 +33,7 @@ const Pages = () => {
 				}>
 				<Route index element={<ManageMenu />} />
 				<Route path='category' element={<Category />} />
+				<Route path='category/add' element={<AddCategory />} />
 				<Route path='product' element={<Product />} />
 				<Route path='order' element={<ManageOrder />} />
 			</Route>
