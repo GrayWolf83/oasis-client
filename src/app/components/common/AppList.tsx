@@ -1,30 +1,37 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Category } from '../../types/category'
+import { Product } from '../../types/product'
 
-type IProps = {
-	items: Category[]
-	component: (item: Category) => JSX.Element
+interface IProps {
+	items: Product[] | Category[]
+	children: React.ReactNode
 }
 
-const ListInner = styled.div`
+const AppListInner = styled.div`
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: 10px 0;
-
+	flex-wrap: wrap;
+	margin-top: 20px;
 	@media (max-width: 1200px) {
 		justify-content: space-around;
 	}
 `
 
-const AppList = ({ items, component: Component }: IProps) => {
+const AppList = ({ items, children }: IProps) => {
 	return (
-		<ListInner>
-			{items.map((item) => (
-				<Component key={item.id} item={item} />
-			))}
-		</ListInner>
+		<AppListInner>
+			{items.map((item) => {
+				return React.Children.map(children, (child: any) => {
+					const config = {
+						...child.props,
+						item,
+					}
+
+					return React.cloneElement(child, config)
+				})
+			})}
+		</AppListInner>
 	)
 }
 
