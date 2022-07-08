@@ -24,14 +24,30 @@ const categorySlice = createSlice({
 			state.entities = action.payload
 			state.dataLoaded = true
 		},
-
+		categoriesLoadingStart(state) {
+			state.isLoading = true
+		},
+		categoryAdded(state, action: PayloadAction<Category>) {
+			state.entities = [...state.entities, action.payload]
+		},
+		categoryDeleted(state, action: PayloadAction<number>) {
+			state.entities = state.entities.filter(
+				(item) => item.id !== action.payload,
+			)
+		},
 		categoriesLoadingEnd(state) {
 			state.isLoading = false
 		},
 	},
 })
 
-const { categoriesLoaded, categoriesLoadingEnd } = categorySlice.actions
+const {
+	categoriesLoaded,
+	categoriesLoadingEnd,
+	categoriesLoadingStart,
+	categoryAdded,
+	categoryDeleted,
+} = categorySlice.actions
 
 export const loadCategoriesList = () => async (dispatch: AppDispatch) => {
 	try {
@@ -45,6 +61,36 @@ export const loadCategoriesList = () => async (dispatch: AppDispatch) => {
 		dispatch(categoriesLoadingEnd())
 	}
 }
+
+export const addCategory =
+	(data: FormData) => async (dispatch: AppDispatch) => {
+		dispatch(categoriesLoadingStart())
+		try {
+			const payload = await categoryService.addCategory(data)
+			dispatch(categoryAdded(payload))
+		} catch (error: any) {
+			if (error?.message) {
+				dispatch(setLoadingError(error.message))
+			}
+		} finally {
+			dispatch(categoriesLoadingEnd())
+		}
+	}
+
+export const deleteCategory =
+	(data: number) => async (dispatch: AppDispatch) => {
+		dispatch(categoriesLoadingStart())
+		try {
+			const payload = await categoryService.deleteCategory(data)
+			dispatch(categoryDeleted(payload))
+		} catch (error: any) {
+			if (error?.message) {
+				dispatch(setLoadingError(error.message))
+			}
+		} finally {
+			dispatch(categoriesLoadingEnd())
+		}
+	}
 
 export const getCategoriesList = () => (state: RootState) => {
 	return state.categories.entities

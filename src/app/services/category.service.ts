@@ -7,6 +7,18 @@ const categoryService = {
 		const { data } = await httpService.get(endpoint)
 		return data
 	},
+	addCategory: async (payload: any) => {
+		const { data } = await httpService.post(endpoint, payload, {
+			headers: {
+				'Content-type': 'multipart/form-data',
+			},
+		})
+		return data
+	},
+	deleteCategory: async (id: number) => {
+		const { data } = await httpService.delete(endpoint + id)
+		return data
+	},
 }
 
 export default categoryService
