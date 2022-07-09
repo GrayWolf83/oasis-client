@@ -15,16 +15,21 @@ const Button = styled.button`
 	border: 1px solid var(--main-color);
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;
+	border-radius: 5px;
 
 	:hover {
 		opacity: 0.7;
 	}
 `
 
-const AppButton = ({ label, type }: IProps) => {
+const AppButton = ({ label, type, ...rest }: IProps) => {
 	const btnType = type ? type : 'button'
 
-	return <Button type={btnType}>{label}</Button>
+	return (
+		<Button type={btnType} {...rest}>
+			{label}
+		</Button>
+	)
 }
 
 export default AppButton

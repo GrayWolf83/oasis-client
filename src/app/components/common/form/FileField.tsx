@@ -2,9 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 type IProps = {
-	onChange: () => void
-	description: string
+	onChange: (value: { [key: string]: string | File }) => void
 	type: string
+	name: string
+	error: string | null
+	value: { name: string } | null
 }
 
 const FileFieldInner = styled.div`
@@ -50,25 +52,35 @@ const InputFileButtonIcon = styled.span`
 	border-right: 1px solid #fff;
 `
 const InputFileButtonText = styled.span``
+const FieldError = styled.p`
+	font-size: 14px;
+	color: var(--red-color);
+`
 
-const FileField = ({ onChange, description, type }: IProps) => {
+const FileField = ({ onChange, type, name, error, value }: IProps) => {
+	const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files?.length) {
+			onChange({ [e.target.name]: e.target.files[0] })
+		}
+	}
+
 	return (
 		<FileFieldInner>
 			<InputFile
-				name='image'
+				name={name}
 				type={type}
 				id='input__file'
-				onChange={onChange}
-				required
+				onChange={(e) => changeHandler(e)}
 			/>
 			<InputFileButton htmlFor='input__file'>
 				<InputFileButtonIcon>
 					<span className='material-icons'>download</span>
 				</InputFileButtonIcon>
 				<InputFileButtonText>
-					{description || 'Выбрать картинку'}
+					{value?.name || 'Выбрать картинку'}
 				</InputFileButtonText>
 			</InputFileButton>
+			{error && <FieldError>{error}</FieldError>}
 		</FileFieldInner>
 	)
 }

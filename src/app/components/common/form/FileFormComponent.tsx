@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import AppButton from '../../ui/AppButton'
 
@@ -7,6 +8,7 @@ type IProps = {
 	onSubmit: (data: FormData) => void
 	btnLabel: string
 	children: React.ReactNode
+	validationShema: any
 }
 
 const Form = styled.form`
@@ -30,22 +32,27 @@ const FileFormComponent = ({
 	onSubmit,
 	btnLabel,
 	children,
+	validationShema,
 }: IProps) => {
-	const [data, setData] = useState<{ [key: string]: string }>({})
+	const [data, setData] = useState<{
+		[key: string]: string | File
+	}>({})
 	const [error, setError] = useState<{ [key: string]: string }>({})
-	const [file, setFile] = useState<File>()
 
-	const changeFileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		console.log('e.target', e.target.files)
+	const validation = useCallback(() => {
+		validationShema
+			.validate(data)
+			.then(() => setError({}))
+			.catch((err: { message: { name: string; text: string } }) =>
+				setError({ [err.message.name]: err.message.text }),
+			)
+	}, [validationShema, data])
 
-		if (e.target.files?.length) {
-			console.log('files', e.target.files[0])
+	useEffect(() => {
+		if (Object.keys(data).length) validation()
+	}, [data, validation])
 
-			setFile(e.target.files[0])
-		}
-	}
-
-	const changeTextHandler = (value: { [key: string]: string }) => {
+	const changeHandler = (value: { [key: string]: string | File }) => {
 		setData((prevState) => ({
 			...prevState,
 			...value,
@@ -55,18 +62,18 @@ const FileFormComponent = ({
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		const formData = new FormData()
-		if (file) {
-			formData.append('image', file)
-		}
+		validation()
+		if (!Object.keys(error).length && Object.keys(data).length) {
+			const formData = new FormData()
 
-		Object.entries(data).forEach((item) => {
-			if (item[1] && typeof item[1] === 'string') {
+			Object.entries(data).forEach((item) => {
 				formData.append(item[0], item[1])
-			}
-		})
+			})
 
-		onSubmit(formData)
+			onSubmit(formData)
+		} else {
+			toast.warning('Заполните все поля формы')
+		}
 	}
 
 	return (
@@ -74,16 +81,9 @@ const FileFormComponent = ({
 			{React.Children.map(children, (child: any) => {
 				const config = {
 					...child.props,
-				}
-
-				if (child.props.type === 'file') {
-					config.description = file?.name
-					config.onChange = changeFileHandler
-				}
-
-				if (child.props.type === 'text') {
-					config.value = data[child.props.name]
-					config.onChange = changeTextHandler
+					onChange: changeHandler,
+					value: data[child.props.name],
+					error: error[child?.props?.name],
 				}
 
 				return React.cloneElement(child, config)

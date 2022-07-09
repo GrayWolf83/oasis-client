@@ -22,9 +22,11 @@ const Category = () => {
 				iconName='add_box'
 				iconColor='var(--main-color)'
 			/>
-			<AppList items={categories}>
-				<CategoryListItem item={categories[0]} />
-			</AppList>
+			{categories.length && (
+				<AppList items={categories}>
+					<CategoryListItem item={categories[0]} />
+				</AppList>
+			)}
 		</>
 	)
 }

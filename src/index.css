@@ -4,10 +4,14 @@
 /* font-family: 'Lobster', cursive; */
 
 :root {
-	/* --main-color: #612a7e; */
-	--main-color: #432A7E;
+	/* --main-color: #00587a; */
+	/* --main-color: #56465a; */
+	/* --main-color: #696c7c; */
+	--main-color: #a23845;
+	/* --main-color: #432A7E; */
 	--white-color: #fff;
-	--red-color: #e17369;
+	/* --red-color: #e17369; */
+	--red-color: #ecc206;
 	--success-color: #4ca333;
 	--yellow-color: #ffc400;
 	--bg-color: #070b30;
@@ -20,7 +24,6 @@ body {
 	font-family: 'Merriweather', serif;
 	color: var(--main-color);
 	position: relative;
-
 }
 body {
 	min-height: 100vh;
@@ -52,7 +55,5 @@ h4 {
 }
 
 ::-webkit-scrollbar {
-    width: 0px; /* ширина для вертикального скролла */
+	width: 0px; /* ширина для вертикального скролла */
 }
-
-

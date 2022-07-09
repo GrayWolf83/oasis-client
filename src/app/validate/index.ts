@@ -50,3 +50,27 @@ export const signUpSchema = yup.object().shape({
 		})
 		.trim(),
 })
+
+export const addCategorySchema = yup.object().shape({
+	image: yup
+		.object()
+		.nullable()
+		.shape({
+			name: yup.string().required({
+				name: 'image',
+				text: 'Не выбрана картинка',
+			}),
+		}),
+
+	name: yup
+		.string()
+		.required({
+			name: 'name',
+			text: 'Поле "Наименование" обязательно для заполнения',
+		})
+		.min(2, {
+			name: 'name',
+			text: 'Длина поля "Наименование" не менее 2 символов',
+		})
+		.trim(),
+})
