@@ -22,14 +22,10 @@ const Button = styled.button`
 	}
 `
 
-const AppButton = ({ label, type, ...rest }: IProps) => {
+const AppButton = ({ label, type }: IProps) => {
 	const btnType = type ? type : 'button'
 
-	return (
-		<Button type={btnType} {...rest}>
-			{label}
-		</Button>
-	)
+	return <Button type={btnType}>{label}</Button>
 }
 
 export default AppButton
