@@ -1,3 +1,4 @@
+import { changeProductSelectedCategory } from './product'
 import { AppDispatch, RootState } from './index'
 import { setLoadingError } from './error'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
@@ -83,6 +84,7 @@ export const deleteCategory =
 		try {
 			const payload = await categoryService.deleteCategory(data)
 			dispatch(categoryDeleted(payload))
+			dispatch(changeProductSelectedCategory(0))
 		} catch (error: any) {
 			if (error?.message) {
 				dispatch(setLoadingError(error.message))

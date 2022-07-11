@@ -7,11 +7,13 @@ import productService from '../services/product.service'
 type ProductState = {
 	entities: Product[]
 	isLoading: boolean
+	selectedCategory: number
 }
 
 const initialState: ProductState = {
 	entities: [],
-	isLoading: true,
+	isLoading: false,
+	selectedCategory: 0,
 }
 
 const productSlice = createSlice({
@@ -21,13 +23,43 @@ const productSlice = createSlice({
 		productsLoaded(state, action: PayloadAction<Product[]>) {
 			state.entities = action.payload
 		},
+		productAdded(state, action: PayloadAction<Product>) {
+			state.entities = [...state.entities, action.payload]
+		},
+		productCategorySelected(state, action: PayloadAction<number>) {
+			state.selectedCategory = action.payload
+		},
+		productVisibleChanged(state, action: PayloadAction<Product>) {
+			state.entities = [
+				...state.entities.filter(
+					(item) => item.id !== action.payload.id,
+				),
+				action.payload,
+			]
+		},
+		productDeleted(state, action: PayloadAction<number>) {
+			state.entities = state.entities.filter(
+				(item) => item.id !== action.payload,
+			)
+		},
+		productLoadingStart(state) {
+			state.isLoading = true
+		},
 		productLoadingEnd(state) {
 			state.isLoading = false
 		},
 	},
 })
 
-const { productsLoaded, productLoadingEnd } = productSlice.actions
+const {
+	productsLoaded,
+	productAdded,
+	productLoadingEnd,
+	productLoadingStart,
+	productVisibleChanged,
+	productCategorySelected,
+	productDeleted,
+} = productSlice.actions
 
 export const loadProductsList =
 	(id: number) => async (dispatch: AppDispatch) => {
@@ -43,8 +75,68 @@ export const loadProductsList =
 		}
 	}
 
+export const addProduct = (data: FormData) => async (dispatch: AppDispatch) => {
+	dispatch(productLoadingStart())
+	try {
+		const payload = await productService.addProduct(data)
+		dispatch(productAdded(payload))
+	} catch (error: any) {
+		if (error?.message) {
+			dispatch(setLoadingError(error.message))
+		}
+	} finally {
+		dispatch(productLoadingEnd())
+	}
+}
+
+export const changeVisibleProduct =
+	(id: number) => async (dispatch: AppDispatch) => {
+		dispatch(productLoadingStart())
+		try {
+			const payload = await productService.editVisibleProduct(id)
+			dispatch(productVisibleChanged(payload))
+		} catch (error: any) {
+			if (error?.message) {
+				dispatch(setLoadingError(error.message))
+			}
+		} finally {
+			dispatch(productLoadingEnd())
+		}
+	}
+
+export const deleteProduct = (id: number) => async (dispatch: AppDispatch) => {
+	dispatch(productLoadingStart())
+	try {
+		const payload = await productService.deleteProduct(id)
+		dispatch(productDeleted(payload))
+	} catch (error: any) {
+		if (error?.message) {
+			dispatch(setLoadingError(error.message))
+		}
+	} finally {
+		dispatch(productLoadingEnd())
+	}
+}
+
+export const changeProductSelectedCategory =
+	(id: number) => async (dispatch: AppDispatch) => {
+		dispatch(productCategorySelected(id))
+	}
+
 export const getProductsList = () => (state: RootState) => {
 	return state.products.entities.filter((item) => item.isVisible)
+}
+
+export const getProductsManageList = () => (state: RootState) => {
+	return state.products.entities
+}
+
+export const getProductById = (id: number) => (state: RootState) => {
+	return state.products.entities.find((item) => Number(item.id) === id)
+}
+
+export const getProductsSelectedCategory = () => (state: RootState) => {
+	return state.products.selectedCategory
 }
 
 export const getProductsLoadingStatus = () => (state: RootState) => {

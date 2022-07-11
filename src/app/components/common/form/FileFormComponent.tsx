@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import AppButton from '../../ui/AppButton'
 
 type IProps = {
-	initialData?: object
+	initialData?: { [key: string]: string }
 	onSubmit: (data: FormData) => void
 	btnLabel: string
 	children: React.ReactNode
@@ -38,6 +38,14 @@ const FileFormComponent = ({
 		[key: string]: string | File
 	}>({})
 	const [error, setError] = useState<{ [key: string]: string }>({})
+
+	useEffect(() => {
+		if (initialData) {
+			setData(initialData)
+		}
+
+		return () => setData({})
+	}, [initialData])
 
 	const validation = useCallback(() => {
 		validationShema

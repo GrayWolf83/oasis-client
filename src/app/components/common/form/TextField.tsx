@@ -87,6 +87,7 @@ const TextField = ({
 				name={name}
 				onChange={(e) => handleChange(e)}
 				autoComplete={name}
+				value={value || ''}
 				{...rest}
 				style={{
 					borderColor: `var(--${error ? 'red' : 'main'}-color)`,

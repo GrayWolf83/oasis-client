@@ -3,15 +3,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import AppList from '../../components/common/AppList'
 import LinkIcon from '../../components/common/LinkIcon'
 import ProductListItem from '../../components/common/ProductsListItem'
-import Loader from '../../components/ui/Loader'
 import PageTitle from '../../components/ui/PageTitle'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppReduxHooks'
 import { getCategoryById } from '../../store/category'
-import {
-	getProductsList,
-	getProductsLoadingStatus,
-	loadProductsList,
-} from '../../store/product'
+import { getProductsList, loadProductsList } from '../../store/product'
 import { Category } from '../../types/category'
 import { Product } from '../../types/product'
 
@@ -19,7 +14,6 @@ const Products = () => {
 	const { id } = useParams()
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
-	const isLoading = useAppSelector(getProductsLoadingStatus())
 	const category: Category | undefined = useAppSelector(
 		getCategoryById(Number(id)),
 	)
@@ -32,9 +26,7 @@ const Products = () => {
 
 	const products: Product[] = useAppSelector(getProductsList())
 
-	return isLoading ? (
-		<Loader />
-	) : (
+	return (
 		<>
 			<LinkIcon path='/' iconName='home' iconColor='var(--main-color)' />
 			{category?.name && <PageTitle title={category.name} />}

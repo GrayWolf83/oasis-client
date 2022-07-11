@@ -25,7 +25,7 @@ const AddCategory = () => {
 			<PageTitle title='Новая категория' />
 
 			<FileFormComponent
-				btnLabel='Создать'
+				btnLabel='Добавить'
 				onSubmit={handleSubmit}
 				validationShema={addCategorySchema}>
 				<TextField

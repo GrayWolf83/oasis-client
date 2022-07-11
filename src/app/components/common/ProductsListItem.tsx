@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { Product } from '../../types/product'
 import AppImage from '../ui/AppImage'
+import CommentsLink from '../ui/CommentsLink'
+import ProductRating from './ProductRating'
 
 interface IProps {
 	item: Product
@@ -44,6 +46,7 @@ const ProductIcon = styled.span`
 	font-size: 36px;
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;
+	margin-top: 5px;
 
 	:hover {
 		opacity: 0.7;
@@ -57,6 +60,11 @@ const ProductListItem = ({ item }: IProps) => {
 			<ProductTitle>{item.name}</ProductTitle>
 			<ProductDesc>{item.description}</ProductDesc>
 			<ProductPrice>Цена: {item.price} ₸</ProductPrice>
+			<ProductRating rating={item.rating} />
+			<CommentsLink
+				comments={item.comments}
+				path={`/products/comments/${Number(item.id)}`}
+			/>
 			<ProductIcon className='material-icons'>
 				add_shopping_cart
 			</ProductIcon>

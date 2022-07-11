@@ -8,4 +8,5 @@ export type Product = {
 	imageWebp: string
 	isVisible: boolean
 	rating: number
+	comments: number
 }

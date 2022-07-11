@@ -74,3 +74,94 @@ export const addCategorySchema = yup.object().shape({
 		})
 		.trim(),
 })
+
+export const addProductSchema = yup.object().shape({
+	image: yup
+		.object()
+		.nullable()
+		.shape({
+			name: yup.string().required({
+				name: 'image',
+				text: 'Не выбрана картинка',
+			}),
+		}),
+	price: yup.number().nullable().required({
+		name: 'price',
+		text: 'Не указана цена',
+	}),
+	category: yup
+		.number()
+		.nullable()
+		.required({
+			name: 'category',
+			text: 'Не выбрана категория',
+		})
+		.min(1, {
+			name: 'category',
+			text: 'Не выбрана категория',
+		}),
+	description: yup
+		.string()
+		.required({
+			name: 'description',
+			text: 'Поле "Описание" обязательно для заполнения',
+		})
+		.min(2, {
+			name: 'description',
+			text: 'Длина поля "Описание" не менее 2 символов',
+		})
+		.trim(),
+
+	name: yup
+		.string()
+		.required({
+			name: 'name',
+			text: 'Поле "Наименование" обязательно для заполнения',
+		})
+		.min(2, {
+			name: 'name',
+			text: 'Длина поля "Наименование" не менее 2 символов',
+		})
+		.trim(),
+})
+
+export const editProductSchema = yup.object().shape({
+	price: yup.number().nullable().required({
+		name: 'price',
+		text: 'Не указана цена',
+	}),
+	category: yup
+		.number()
+		.nullable()
+		.required({
+			name: 'category',
+			text: 'Не выбрана категория',
+		})
+		.min(1, {
+			name: 'category',
+			text: 'Не выбрана категория',
+		}),
+	description: yup
+		.string()
+		.required({
+			name: 'description',
+			text: 'Поле "Описание" обязательно для заполнения',
+		})
+		.min(2, {
+			name: 'description',
+			text: 'Длина поля "Описание" не менее 2 символов',
+		})
+		.trim(),
+
+	name: yup
+		.string()
+		.required({
+			name: 'name',
+			text: 'Поле "Наименование" обязательно для заполнения',
+		})
+		.min(2, {
+			name: 'name',
+			text: 'Длина поля "Наименование" не менее 2 символов',
+		})
+		.trim(),
+})

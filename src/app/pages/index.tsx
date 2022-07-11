@@ -11,7 +11,9 @@ import ClientOrder from './client/order'
 import Products from './client/products'
 import Manage from './manage'
 import AddCategory from './manage/addCategory'
+import AddProduct from './manage/addProduct'
 import Category from './manage/category'
+import EditProduct from './manage/editProduct'
 import ManageMenu from './manage/menu'
 import ManageOrder from './manage/order'
 import Product from './manage/product'
@@ -35,6 +37,8 @@ const Pages = () => {
 				<Route path='category' element={<Category />} />
 				<Route path='category/add' element={<AddCategory />} />
 				<Route path='product' element={<Product />} />
+				<Route path='product/add' element={<AddProduct />} />
+				<Route path='product/edit/:id' element={<EditProduct />} />
 				<Route path='order' element={<ManageOrder />} />
 			</Route>
 			<Route path='/' element={<Client />}>
