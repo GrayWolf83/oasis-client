@@ -72,7 +72,11 @@ const FileField = ({ onChange, type, name, error, value }: IProps) => {
 				id='input__file'
 				onChange={(e) => changeHandler(e)}
 			/>
-			<InputFileButton htmlFor='input__file'>
+			<InputFileButton
+				htmlFor='input__file'
+				style={{
+					backgroundColor: `var(--${error ? 'red' : 'main'}-color)`,
+				}}>
 				<InputFileButtonIcon>
 					<span className='material-icons'>download</span>
 				</InputFileButtonIcon>

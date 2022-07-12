@@ -37,6 +37,14 @@ const productSlice = createSlice({
 				action.payload,
 			]
 		},
+		productEdited(state, action: PayloadAction<Product>) {
+			state.entities = [
+				...state.entities.filter(
+					(item) => Number(item.id) !== Number(action.payload.id),
+				),
+				action.payload,
+			]
+		},
 		productDeleted(state, action: PayloadAction<number>) {
 			state.entities = state.entities.filter(
 				(item) => item.id !== action.payload,
@@ -59,6 +67,7 @@ const {
 	productVisibleChanged,
 	productCategorySelected,
 	productDeleted,
+	productEdited,
 } = productSlice.actions
 
 export const loadProductsList =
@@ -95,6 +104,21 @@ export const changeVisibleProduct =
 		try {
 			const payload = await productService.editVisibleProduct(id)
 			dispatch(productVisibleChanged(payload))
+		} catch (error: any) {
+			if (error?.message) {
+				dispatch(setLoadingError(error.message))
+			}
+		} finally {
+			dispatch(productLoadingEnd())
+		}
+	}
+
+export const editProduct =
+	(data: { id: string; data: FormData }) => async (dispatch: AppDispatch) => {
+		dispatch(productLoadingStart())
+		try {
+			const payload = await productService.editProduct(data)
+			dispatch(productEdited(payload))
 		} catch (error: any) {
 			if (error?.message) {
 				dispatch(setLoadingError(error.message))

@@ -21,6 +21,7 @@ const FieldInput = styled.input`
 	font-size: 18px;
 	padding: 10px;
 	border: 1px solid var(--main-color);
+	color: var(--main-color);
 
 	:focus-visible {
 		outline: none;

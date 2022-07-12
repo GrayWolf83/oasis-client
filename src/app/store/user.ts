@@ -74,13 +74,18 @@ export const autologin = () => async (dispatch: AppDispatch) => {
 	dispatch(userLoadingStart())
 	try {
 		const payload: Payload = await userService.refresh()
-		dispatch(userLoaded(payload.user))
 
-		localStorageService.setTokens({
-			refreshToken: payload.refreshToken,
-			accessToken: payload.accessToken,
-			expiresIn: payload.expiresIn,
-		})
+		if (!payload?.refreshToken || !payload?.accessToken) {
+			localStorageService.removeAuthData()
+		} else {
+			dispatch(userLoaded(payload.user))
+
+			localStorageService.setTokens({
+				refreshToken: payload.refreshToken,
+				accessToken: payload.accessToken,
+				expiresIn: payload.expiresIn,
+			})
+		}
 	} catch (error: any) {
 		if (error?.message) {
 			dispatch(setLoadingError(error.message))

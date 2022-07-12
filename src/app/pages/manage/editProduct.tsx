@@ -8,7 +8,7 @@ import LinkIcon from '../../components/common/LinkIcon'
 import PageTitle from '../../components/ui/PageTitle'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppReduxHooks'
 import { getCategoriesList } from '../../store/category'
-import { getProductById } from '../../store/product'
+import { editProduct, getProductById } from '../../store/product'
 import { editProductSchema } from '../../validate'
 
 const EditProduct = () => {
@@ -17,11 +17,13 @@ const EditProduct = () => {
 	const categories = useAppSelector(getCategoriesList())
 	const dispatch = useAppDispatch()
 
-	const handleSubmit = (data: FormData) => {
-		console.log('submit', data)
-	}
-
 	if (!product) return <Navigate to='/manage/product' />
+
+	const handleSubmit = (data: FormData) => {
+		if (id) {
+			dispatch(editProduct({ id, data }))
+		}
+	}
 
 	const strProduct = {
 		name: product.name,
@@ -41,7 +43,7 @@ const EditProduct = () => {
 			<FileFormComponent
 				onSubmit={handleSubmit}
 				initialData={strProduct}
-				btnLabel='Добавить'
+				btnLabel='Сохранить'
 				validationShema={editProductSchema}>
 				<TextField
 					type='text'

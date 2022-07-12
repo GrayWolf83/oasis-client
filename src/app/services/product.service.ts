@@ -21,6 +21,13 @@ const productService = {
 		)
 		return data
 	},
+	editProduct: async (payload: { id: string; data: FormData }) => {
+		const { data } = await httpService.patch(
+			endpoint + payload.id,
+			payload.data,
+		)
+		return data
+	},
 	deleteProduct: async (id: number) => {
 		const { data } = await httpService.delete(endpoint + id)
 		return data
