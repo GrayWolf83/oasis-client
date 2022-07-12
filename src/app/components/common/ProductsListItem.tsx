@@ -1,5 +1,8 @@
 import React from 'react'
+import { toast } from 'react-toastify'
 import styled from 'styled-components'
+import { useAppDispatch } from '../../hooks/useAppReduxHooks'
+import { addCartProduct } from '../../store/cart'
 import { Product } from '../../types/product'
 import AppImage from '../ui/AppImage'
 import CommentsLink from '../ui/CommentsLink'
@@ -54,6 +57,15 @@ const ProductIcon = styled.span`
 `
 
 const ProductListItem = ({ item }: IProps) => {
+	const dispatch = useAppDispatch()
+
+	const addCartItemHandler = (prod: Product) => {
+		dispatch(addCartProduct(prod))
+		toast.success(`'${item.name}' добавлено в корзину`, {
+			position: toast.POSITION.BOTTOM_RIGHT,
+		})
+	}
+
 	return (
 		<ProductItem>
 			<AppImage item={item} width='150px' height='90px' />
@@ -65,7 +77,9 @@ const ProductListItem = ({ item }: IProps) => {
 				comments={item.comments}
 				path={`/products/comments/${Number(item.id)}`}
 			/>
-			<ProductIcon className='material-icons'>
+			<ProductIcon
+				className='material-icons'
+				onClick={() => addCartItemHandler(item)}>
 				add_shopping_cart
 			</ProductIcon>
 		</ProductItem>
