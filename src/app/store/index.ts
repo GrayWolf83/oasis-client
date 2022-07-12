@@ -3,6 +3,7 @@ import errorsReducer from './error'
 import userReducer from './user'
 import categoriesReducer from './category'
 import productReducer from './product'
+import cartReducer from './cart'
 
 const store = configureStore({
 	reducer: combineReducers({
@@ -10,6 +11,7 @@ const store = configureStore({
 		errors: errorsReducer,
 		categories: categoriesReducer,
 		products: productReducer,
+		cart: cartReducer,
 	}),
 })
 

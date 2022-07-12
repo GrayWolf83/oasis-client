@@ -57,7 +57,7 @@ const CategoryListItem = ({ item }: IProps) => {
 				show={showConfirm}
 				onShow={setShowConfirm}
 				setPermission={handleDelete}
-				text={`Удалить категорию "${item.name}"?`}
+				text={`Удалить "${item.name}"?`}
 			/>
 		</ItemInner>
 	)
