@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import InputGroupBlock from '../../ui/InputGroupBlock'
 
 type IProps = {
-	items: { id: number; name: string }[]
+	items: { id: string; name: string }[]
 	onChange: (data: { [key: string]: string }) => void
 	name: string
 	label: string
-	defaultLabel: string
+	// defaultLabel: string
 	error: string | null
 	value: number | string
 }
@@ -38,7 +38,7 @@ const SelectField = ({
 	onChange,
 	name,
 	label,
-	defaultLabel,
+	// defaultLabel,
 	error,
 	value,
 }: IProps) => {
@@ -64,9 +64,9 @@ const SelectField = ({
 					borderColor: `var(--${error ? 'red' : 'main'}-color)`,
 					color: `var(--${error ? 'red' : 'main'}-color)`,
 				}}>
-				<Option value={0}>{defaultLabel}</Option>
+				{/* <Option value={0}>{defaultLabel}</Option> */}
 				{items.map((item) => (
-					<Option value={Number(item.id)} key={item.id}>
+					<Option value={item.id} key={item.id}>
 						{item.name}
 					</Option>
 				))}

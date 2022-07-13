@@ -54,7 +54,7 @@ const ManageProductsListItem = ({ item }: IProps) => {
 	const dispatch = useAppDispatch()
 
 	const handleDelete = () => {
-		dispatch(deleteProduct(Number(item.id)))
+		dispatch(deleteProduct(item.id))
 	}
 
 	return (
@@ -71,9 +71,7 @@ const ManageProductsListItem = ({ item }: IProps) => {
 				<ItemActions>
 					<ItemIcon
 						className='material-icons'
-						onClick={() =>
-							dispatch(changeVisibleProduct(Number(item.id)))
-						}
+						onClick={() => dispatch(changeVisibleProduct(item.id))}
 						style={{
 							color: item.isVisible
 								? 'var(--main-color)'

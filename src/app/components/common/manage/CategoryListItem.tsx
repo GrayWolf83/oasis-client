@@ -39,7 +39,7 @@ const CategoryListItem = ({ item }: IProps) => {
 	const [showConfirm, setShowConfirm] = useState(false)
 
 	const handleDelete = () => {
-		dispatch(deleteCategory(Number(item.id)))
+		dispatch(deleteCategory(item.id))
 	}
 
 	return (

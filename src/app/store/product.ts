@@ -7,13 +7,13 @@ import productService from '../services/product.service'
 type ProductState = {
 	entities: Product[]
 	isLoading: boolean
-	selectedCategory: number
+	selectedCategory: string
 }
 
 const initialState: ProductState = {
 	entities: [],
 	isLoading: false,
-	selectedCategory: 0,
+	selectedCategory: '',
 }
 
 const productSlice = createSlice({
@@ -26,7 +26,7 @@ const productSlice = createSlice({
 		productAdded(state, action: PayloadAction<Product>) {
 			state.entities = [...state.entities, action.payload]
 		},
-		productCategorySelected(state, action: PayloadAction<number>) {
+		productCategorySelected(state, action: PayloadAction<string>) {
 			state.selectedCategory = action.payload
 		},
 		productVisibleChanged(state, action: PayloadAction<Product>) {
@@ -40,12 +40,12 @@ const productSlice = createSlice({
 		productEdited(state, action: PayloadAction<Product>) {
 			state.entities = [
 				...state.entities.filter(
-					(item) => Number(item.id) !== Number(action.payload.id),
+					(item) => item.id !== action.payload.id,
 				),
 				action.payload,
 			]
 		},
-		productDeleted(state, action: PayloadAction<number>) {
+		productDeleted(state, action: PayloadAction<string>) {
 			state.entities = state.entities.filter(
 				(item) => item.id !== action.payload,
 			)
@@ -71,7 +71,7 @@ const {
 } = productSlice.actions
 
 export const loadProductsList =
-	(id: number) => async (dispatch: AppDispatch) => {
+	(id: string) => async (dispatch: AppDispatch) => {
 		try {
 			const payload = await productService.getProductsList(id)
 			dispatch(productsLoaded(payload))
@@ -99,7 +99,7 @@ export const addProduct = (data: FormData) => async (dispatch: AppDispatch) => {
 }
 
 export const changeVisibleProduct =
-	(id: number) => async (dispatch: AppDispatch) => {
+	(id: string) => async (dispatch: AppDispatch) => {
 		dispatch(productLoadingStart())
 		try {
 			const payload = await productService.editVisibleProduct(id)
@@ -128,7 +128,7 @@ export const editProduct =
 		}
 	}
 
-export const deleteProduct = (id: number) => async (dispatch: AppDispatch) => {
+export const deleteProduct = (id: string) => async (dispatch: AppDispatch) => {
 	dispatch(productLoadingStart())
 	try {
 		const payload = await productService.deleteProduct(id)
@@ -143,7 +143,7 @@ export const deleteProduct = (id: number) => async (dispatch: AppDispatch) => {
 }
 
 export const changeProductSelectedCategory =
-	(id: number) => async (dispatch: AppDispatch) => {
+	(id: string) => async (dispatch: AppDispatch) => {
 		dispatch(productCategorySelected(id))
 	}
 
@@ -155,8 +155,8 @@ export const getProductsManageList = () => (state: RootState) => {
 	return state.products.entities
 }
 
-export const getProductById = (id: number) => (state: RootState) => {
-	return state.products.entities.find((item) => Number(item.id) === id)
+export const getProductById = (id: string) => (state: RootState) => {
+	return state.products.entities.find((item) => item.id === id)
 }
 
 export const getProductsSelectedCategory = () => (state: RootState) => {

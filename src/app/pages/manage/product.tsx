@@ -6,7 +6,7 @@ import LinkIcon from '../../components/common/LinkIcon'
 import ManageProductsListItem from '../../components/common/manage/ProductsListItem'
 import PageTitle from '../../components/ui/PageTitle'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppReduxHooks'
-import { getCategoriesList } from '../../store/category'
+import { getAllCategoriesList } from '../../store/category'
 import {
 	changeProductSelectedCategory,
 	getProductsManageList,
@@ -37,12 +37,16 @@ const AppListBlock = styled.div`
 const Product = () => {
 	const selectedCategory = useAppSelector(getProductsSelectedCategory())
 	const dispatch = useAppDispatch()
-	const categories = useAppSelector(getCategoriesList())
+	const categories = useAppSelector(getAllCategoriesList())
 	const products = useAppSelector(getProductsManageList())
 
 	useEffect(() => {
-		dispatch(loadProductsList(selectedCategory))
-	}, [selectedCategory, dispatch])
+		dispatch(
+			loadProductsList(
+				selectedCategory ? selectedCategory : categories[0].id,
+			),
+		)
+	}, [selectedCategory, dispatch, categories])
 
 	return (
 		<>
@@ -62,17 +66,13 @@ const Product = () => {
 				<SelectBlock>
 					<SelectField
 						label=''
-						defaultLabel='Без категории'
+						// defaultLabel='Без категории'
 						items={categories}
 						name='cat'
 						value={selectedCategory}
 						error={null}
 						onChange={(value) =>
-							dispatch(
-								changeProductSelectedCategory(
-									Number(value.cat),
-								),
-							)
+							dispatch(changeProductSelectedCategory(value.cat))
 						}
 					/>
 				</SelectBlock>

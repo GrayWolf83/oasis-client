@@ -3,7 +3,7 @@ import httpService from './http.service'
 const endpoint = 'product/'
 
 const productService = {
-	getProductsList: async (id: number) => {
+	getProductsList: async (id: string) => {
 		const { data } = await httpService.get(endpoint + id)
 		return data
 	},
@@ -15,7 +15,7 @@ const productService = {
 		})
 		return data
 	},
-	editVisibleProduct: async (id: number) => {
+	editVisibleProduct: async (id: string) => {
 		const { data } = await httpService.patch(
 			endpoint + 'changeVisible/' + id,
 		)
@@ -28,7 +28,7 @@ const productService = {
 		)
 		return data
 	},
-	deleteProduct: async (id: number) => {
+	deleteProduct: async (id: string) => {
 		const { data } = await httpService.delete(endpoint + id)
 		return data
 	},

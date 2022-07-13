@@ -31,7 +31,7 @@ const categorySlice = createSlice({
 		categoryAdded(state, action: PayloadAction<Category>) {
 			state.entities = [...state.entities, action.payload]
 		},
-		categoryDeleted(state, action: PayloadAction<number>) {
+		categoryDeleted(state, action: PayloadAction<string>) {
 			state.entities = state.entities.filter(
 				(item) => item.id !== action.payload,
 			)
@@ -79,12 +79,12 @@ export const addCategory =
 	}
 
 export const deleteCategory =
-	(data: number) => async (dispatch: AppDispatch) => {
+	(data: string) => async (dispatch: AppDispatch) => {
 		dispatch(categoriesLoadingStart())
 		try {
 			const payload = await categoryService.deleteCategory(data)
 			dispatch(categoryDeleted(payload))
-			dispatch(changeProductSelectedCategory(0))
+			dispatch(changeProductSelectedCategory(''))
 		} catch (error: any) {
 			if (error?.message) {
 				dispatch(setLoadingError(error.message))
@@ -95,10 +95,16 @@ export const deleteCategory =
 	}
 
 export const getCategoriesList = () => (state: RootState) => {
+	return state.categories.entities.filter(
+		(item) => item.name !== 'Без категории',
+	)
+}
+
+export const getAllCategoriesList = () => (state: RootState) => {
 	return state.categories.entities
 }
 
-export const getCategoryById = (id: number) => (state: RootState) => {
+export const getCategoryById = (id: string) => (state: RootState) => {
 	return state.categories.entities.find((item) => item.id === id)
 }
 
