@@ -7,7 +7,7 @@ type IProps = {
 	onChange: (data: { [key: string]: string }) => void
 	name: string
 	label: string
-	// defaultLabel: string
+	defaultLabel?: string
 	error: string | null
 	value: number | string
 }
@@ -38,7 +38,7 @@ const SelectField = ({
 	onChange,
 	name,
 	label,
-	// defaultLabel,
+	defaultLabel,
 	error,
 	value,
 }: IProps) => {
@@ -64,7 +64,7 @@ const SelectField = ({
 					borderColor: `var(--${error ? 'red' : 'main'}-color)`,
 					color: `var(--${error ? 'red' : 'main'}-color)`,
 				}}>
-				{/* <Option value={0}>{defaultLabel}</Option> */}
+				{defaultLabel && <Option value={''}>{defaultLabel}</Option>}
 				{items.map((item) => (
 					<Option value={item.id} key={item.id}>
 						{item.name}

@@ -49,7 +49,7 @@ const AddProduct = () => {
 					items={categories}
 					onChange={() => {}}
 					label='Категория'
-					// defaultLabel='Выбрать категорию'
+					defaultLabel='Выбрать категорию'
 					value={0}
 					error={null}
 				/>

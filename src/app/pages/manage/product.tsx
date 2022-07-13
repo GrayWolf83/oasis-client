@@ -5,6 +5,7 @@ import SelectField from '../../components/common/form/SelectField'
 import LinkIcon from '../../components/common/LinkIcon'
 import ManageProductsListItem from '../../components/common/manage/ProductsListItem'
 import PageTitle from '../../components/ui/PageTitle'
+import SomeTextCenter from '../../components/ui/SomeTextCenter'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppReduxHooks'
 import { getAllCategoriesList } from '../../store/category'
 import {
@@ -83,7 +84,7 @@ const Product = () => {
 						<ManageProductsListItem item={products[0]} />
 					</AppList>
 				) : (
-					<p>В эту категорию блюд еще не добавлено</p>
+					<SomeTextCenter text='В эту категорию еще ничего не добавлено' />
 				)}
 			</AppListBlock>
 		</>

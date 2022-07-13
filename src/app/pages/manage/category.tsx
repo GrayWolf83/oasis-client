@@ -3,6 +3,7 @@ import AppList from '../../components/common/AppList'
 import LinkIcon from '../../components/common/LinkIcon'
 import CategoryListItem from '../../components/common/manage/CategoryListItem'
 import PageTitle from '../../components/ui/PageTitle'
+import SomeTextCenter from '../../components/ui/SomeTextCenter'
 import { useAppSelector } from '../../hooks/useAppReduxHooks'
 import { getCategoriesList } from '../../store/category'
 
@@ -22,10 +23,12 @@ const Category = () => {
 				iconName='add_box'
 				iconColor='var(--main-color)'
 			/>
-			{categories.length && (
+			{categories.length ? (
 				<AppList items={categories}>
 					<CategoryListItem item={categories[0]} />
 				</AppList>
+			) : (
+				<SomeTextCenter text='Категории еще не добавлены' />
 			)}
 		</>
 	)
