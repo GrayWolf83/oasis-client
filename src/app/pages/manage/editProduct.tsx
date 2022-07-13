@@ -13,7 +13,7 @@ import { editProductSchema } from '../../validate'
 
 const EditProduct = () => {
 	const { id } = useParams()
-	const product = useAppSelector(getProductById(Number(id)))
+	const product = useAppSelector(getProductById(id ? id : ''))
 	const categories = useAppSelector(getCategoriesList())
 	const dispatch = useAppDispatch()
 
@@ -64,7 +64,7 @@ const EditProduct = () => {
 					items={categories}
 					onChange={() => {}}
 					label='Категория'
-					defaultLabel='Выбрать категорию'
+					// defaultLabel='Выбрать категорию'
 					value={0}
 					error={null}
 				/>

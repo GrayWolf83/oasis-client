@@ -71,6 +71,7 @@ const FileFormComponent = ({
 		e.preventDefault()
 
 		validation()
+		delete error?.undefined
 		if (!Object.keys(error).length && Object.keys(data).length) {
 			const formData = new FormData()
 

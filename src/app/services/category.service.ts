@@ -15,7 +15,7 @@ const categoryService = {
 		})
 		return data
 	},
-	deleteCategory: async (id: number) => {
+	deleteCategory: async (id: string) => {
 		const { data } = await httpService.delete(endpoint + id)
 		return data
 	},

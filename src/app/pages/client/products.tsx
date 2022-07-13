@@ -15,13 +15,13 @@ const Products = () => {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 	const category: Category | undefined = useAppSelector(
-		getCategoryById(Number(id)),
+		getCategoryById(id ? id : ''),
 	)
 
 	if (!category) navigate('/')
 
 	useEffect(() => {
-		dispatch(loadProductsList(Number(id)))
+		dispatch(loadProductsList(id ? id : ''))
 	}, [id, dispatch])
 
 	const products: Product[] = useAppSelector(getProductsList())
