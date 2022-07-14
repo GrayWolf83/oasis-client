@@ -165,3 +165,41 @@ export const editProductSchema = yup.object().shape({
 		})
 		.trim(),
 })
+
+export const sendOrderSchema = yup.object().shape({
+	address: yup
+		.string()
+		.required({
+			name: 'address',
+			text: 'Поле "Адрес доставки" обязательно для заполнения',
+		})
+		.min(5, {
+			name: 'address',
+			text: 'Длина поля "Адрес доставки" не менее 5 символов',
+		})
+		.trim(),
+
+	phone: yup
+		.string()
+		.required({
+			name: 'phone',
+			text: 'Поле "Телефон" обязательно для заполнения',
+		})
+		.min(11, {
+			name: 'phone',
+			text: 'Длина поля "Телефон" не менее 11 символов',
+		})
+		.trim(),
+
+	name: yup
+		.string()
+		.required({
+			name: 'name',
+			text: 'Поле "Имя" обязательно для заполнения',
+		})
+		.min(2, {
+			name: 'name',
+			text: 'Длина поля "Имя" не менее 2 символов',
+		})
+		.trim(),
+})
