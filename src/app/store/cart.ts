@@ -39,17 +39,17 @@ const cartProductSlice = createSlice({
 				]
 			}
 		},
-		cartProductRemoved: (state, action: PayloadAction<number>) => {
+		cartProductRemoved: (state, action: PayloadAction<string>) => {
 			state.entities = state.entities.filter(
-				(item) => Number(item.id) !== action.payload,
+				(item) => item.id !== action.payload,
 			)
 		},
 		cartCleared: (state) => {
 			state.entities = []
 		},
-		cartIncrement: (state, action: PayloadAction<number>) => {
+		cartIncrement: (state, action: PayloadAction<string>) => {
 			state.entities = state.entities.map((item) => {
-				if (Number(item.id) === action.payload) {
+				if (item.id === action.payload) {
 					return {
 						...item,
 						count: item.count + 1,
@@ -58,10 +58,10 @@ const cartProductSlice = createSlice({
 				return item
 			})
 		},
-		cartDecrement: (state, action: PayloadAction<number>) => {
+		cartDecrement: (state, action: PayloadAction<string>) => {
 			state.entities = state.entities
 				.map((item) => {
-					if (Number(item.id) === action.payload) {
+					if (item.id === action.payload) {
 						return {
 							...item,
 							count: item.count - 1,
@@ -101,15 +101,15 @@ export const getCartItemsCount = () => (state: RootState) => {
 	return state.cart.entities.length
 }
 
-export const removeCartProduct = (id: number) => (dispatch: AppDispatch) => {
+export const removeCartProduct = (id: string) => (dispatch: AppDispatch) => {
 	dispatch(cartProductRemoved(id))
 }
 
-export const incrementCartProduct = (id: number) => (dispatch: AppDispatch) => {
+export const incrementCartProduct = (id: string) => (dispatch: AppDispatch) => {
 	dispatch(cartIncrement(id))
 }
 
-export const decrementCartProduct = (id: number) => (dispatch: AppDispatch) => {
+export const decrementCartProduct = (id: string) => (dispatch: AppDispatch) => {
 	dispatch(cartDecrement(id))
 }
 

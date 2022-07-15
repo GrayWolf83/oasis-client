@@ -6,7 +6,6 @@ import { addCartProduct } from '../../store/cart'
 import { Product } from '../../types/product'
 import AppImage from '../ui/AppImage'
 import CommentsLink from '../ui/CommentsLink'
-import ProductRating from './ProductRating'
 
 interface IProps {
 	item: Product
@@ -72,10 +71,9 @@ const ProductListItem = ({ item }: IProps) => {
 			<ProductTitle>{item.name}</ProductTitle>
 			<ProductDesc>{item.description}</ProductDesc>
 			<ProductPrice>Цена: {item.price} ₸</ProductPrice>
-			<ProductRating rating={item.rating} />
 			<CommentsLink
 				comments={item.comments}
-				path={`/products/comments/${Number(item.id)}`}
+				path={`/products/comments/${item.id}`}
 			/>
 			<ProductIcon
 				className='material-icons'

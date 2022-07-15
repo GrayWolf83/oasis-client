@@ -1,11 +1,22 @@
-import { Product } from './product'
-
 export type Order = {
 	id: string
-	userId?: string
-	products: { product: Product; count: number }[]
-	phone: number
+	user: string
+	name: string
+	phone: string
 	address: string
-	cost: number
-	status: 'Приготовление' | 'Доставка' | 'Закрыт'
+	price: number
+	status: string
+	createdAt: string
+	updatedAt: string
+	OrderProducts: {
+		id: string
+		count: number
+		Product: {
+			name: string
+			description: string
+			price: number
+			image: string
+			imageWebp: string
+		}
+	}[]
 }
