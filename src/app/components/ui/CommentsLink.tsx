@@ -14,39 +14,31 @@ const CommentsLinkBlock = styled.div`
 
 	a {
 		display: flex;
-		align-items: flex-end;
+		align-items: center;
+		margin-right: 20px;
+
+		:hover {
+			opacity: 0.7;
+		}
 	}
 `
 const CommentsLinkIcon = styled.span`
 	font-size: 22px;
 `
-const CommentsLinkCount = styled.span`
-	font-size: 18px;
+const CommentsLinkText = styled.span`
+	font-size: 14px;
 	margin-right: 5px;
 `
 
 const CommentsLink = ({ comments, path }: IProps) => {
 	return (
 		<CommentsLinkBlock>
-			{comments ? (
-				<Link to={path}>
-					<CommentsLinkCount>{comments}</CommentsLinkCount>
-					<CommentsLinkIcon className='material-icons'>
-						sms
-					</CommentsLinkIcon>
-				</Link>
-			) : (
-				<>
-					<CommentsLinkCount style={{ color: 'var(--red-color)' }}>
-						{comments}
-					</CommentsLinkCount>
-					<CommentsLinkIcon
-						className='material-icons'
-						style={{ color: 'var(--red-color)' }}>
-						sms
-					</CommentsLinkIcon>
-				</>
-			)}
+			<Link to={path}>
+				<CommentsLinkText>Отзывы</CommentsLinkText>
+				<CommentsLinkIcon className='material-icons'>
+					sms
+				</CommentsLinkIcon>
+			</Link>
 		</CommentsLinkBlock>
 	)
 }

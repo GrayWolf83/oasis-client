@@ -9,7 +9,8 @@ import PageTitle from '../../components/ui/PageTitle'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppReduxHooks'
 import orderService from '../../services/order.service'
 import { clearCart, getCartList } from '../../store/cart'
-import { Order } from '../../types/order'
+import { getUser } from '../../store/user'
+import { OrderData } from '../../types/orderData'
 import { sendOrderSchema } from '../../validate'
 
 const Table = styled.table`
@@ -23,6 +24,7 @@ const OrderTotal = styled.h3`
 
 const SendOrder = () => {
 	const dispatch = useAppDispatch()
+	const user = useAppSelector(getUser())
 	const navigate = useNavigate()
 	const cartItems = useAppSelector(getCartList())
 	const total = cartItems.reduce(
@@ -31,7 +33,8 @@ const SendOrder = () => {
 	)
 
 	const handleSubmit = async (data: { [key: string]: string }) => {
-		const order: Order = {
+		const order: OrderData = {
+			user: user?.id || null,
 			name: data.name,
 			phone: data.phone,
 			address: data.address,

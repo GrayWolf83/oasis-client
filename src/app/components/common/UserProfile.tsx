@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppReduxHooks'
-import { getUser, logout } from '../../store/user'
+import { getIsManage, logout } from '../../store/user'
 
 const ProfileInner = styled.div`
 	position: relative;
@@ -42,7 +42,7 @@ const ProfileMenu = styled.ul`
 const UserProfile = () => {
 	const [isOpen, setOpen] = useState(false)
 	const dispatch = useAppDispatch()
-	const user = useAppSelector(getUser())
+	const isManage = useAppSelector(getIsManage())
 
 	const handleClick = () => {
 		setOpen(!isOpen)
@@ -59,15 +59,13 @@ const UserProfile = () => {
 			</Icon>
 			{isOpen && (
 				<ProfileMenu>
-					{user?.role === 'manage' ? (
-						<li onClick={handleClick}>
+					<li onClick={handleClick}>
+						{isManage ? (
 							<Link to='/manage'>Управление</Link>
-						</li>
-					) : (
-						<li onClick={handleClick}>
+						) : (
 							<Link to='/order'>Заказы</Link>
-						</li>
-					)}
+						)}
+					</li>
 
 					<li onClick={handleLogOut}>Выход</li>
 				</ProfileMenu>

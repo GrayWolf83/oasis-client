@@ -132,6 +132,10 @@ export const getUser = () => (state: RootState) => {
 	return state.user.user
 }
 
+export const getIsManage = () => (state: RootState) => {
+	return state.user.user?.role === 'manage'
+}
+
 export const getUserLoadedStatus = () => (state: RootState) => {
 	return state.user.isUserLoaded
 }
