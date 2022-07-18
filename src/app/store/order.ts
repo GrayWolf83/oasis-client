@@ -30,6 +30,21 @@ const orderSlice = createSlice({
 		activeOrderAdded(state, action: PayloadAction<Order>) {
 			state.activeOrders = [...state.activeOrders, action.payload]
 		},
+		orderStatusChanged(state, action: PayloadAction<Order>) {
+			if (action.payload.status === 'end') {
+				state.activeOrders = state.activeOrders.filter(
+					(item) => item.id !== action.payload.id,
+				)
+				state.archiveOrders = [...state.archiveOrders, action.payload]
+			} else {
+				state.activeOrders = state.activeOrders.map((item) => {
+					if (item.id === action.payload.id) {
+						return action.payload
+					}
+					return item
+				})
+			}
+		},
 		ordersLoadingStart(state) {
 			state.isLoading = true
 		},
@@ -45,6 +60,7 @@ const {
 	activeOrderAdded,
 	ordersLoadingStart,
 	ordersLoadingEnd,
+	orderStatusChanged,
 } = orderSlice.actions
 
 export const loadActiveOrdersList =
@@ -90,9 +106,7 @@ export const updateOrderStatus =
 		dispatch(ordersLoadingStart())
 		try {
 			const payload = await orderService.updateOrderStatus(id)
-			if (payload) {
-				loadActiveOrdersList()
-			}
+			dispatch(orderStatusChanged(payload))
 		} catch (error: any) {
 			if (error?.message) {
 				dispatch(setLoadingError(error.message))

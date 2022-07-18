@@ -56,8 +56,8 @@ const CartButton = styled.button`
 	}
 
 	:nth-child(2) {
-		background-color: var(--success-color);
-		border: 1px solid var(--success-color);
+		background-color: var(--main-color);
+		border: 1px solid var(--main-color);
 	}
 `
 
