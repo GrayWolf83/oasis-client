@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 type IProps = {
@@ -11,7 +11,8 @@ type IProps = {
 const Icon = styled.span`
 	font-size: 36px;
 	transition: all 0.3s ease-in-out;
-	margin-left: 10px;
+	margin: 10px;
+	cursor: pointer;
 
 	:hover {
 		opacity: 0.7;
@@ -19,12 +20,19 @@ const Icon = styled.span`
 `
 
 const LinkIcon = ({ path, iconName, iconColor }: IProps) => {
+	const navigate = useNavigate()
+
+	const handleClick = () => {
+		navigate(path)
+	}
+
 	return (
-		<Link to={path}>
-			<Icon className='material-icons' style={{ color: iconColor }}>
-				{iconName}
-			</Icon>
-		</Link>
+		<Icon
+			className='material-icons'
+			style={{ color: iconColor }}
+			onClick={handleClick}>
+			{iconName}
+		</Icon>
 	)
 }
 

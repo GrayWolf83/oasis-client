@@ -5,30 +5,23 @@ type IProps = {
 	label: string
 	type: string
 	name: string
-	value: string | number
+	value?: string | number
 	onChange(value: { [key: string]: string }): void
 	error: string | null
 }
 
 const FieldBlock = styled.div`
-	width: 60%;
+	width: 100%;
 	height: 85px;
 	position: relative;
-	margin: 15px auto;
-
-	@media (max-width: 992px) {
-		width: 80%;
-	}
-
-	@media (max-width: 580px) {
-		width: 95%;
-	}
+	margin-bottom: 10px;
 `
 const FieldInput = styled.input`
 	width: calc(100% - 22px);
 	font-size: 18px;
 	padding: 10px;
 	border: 1px solid var(--main-color);
+	color: var(--main-color);
 
 	:focus-visible {
 		outline: none;
@@ -43,15 +36,21 @@ const FieldButton = styled.button`
 	bottom: 19px;
 	right: 0;
 	z-index: 5;
-	background-color: var(--white-color);
+	background-color: var(--main-color);
 	border: 1px solid var(--main-color);
 	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+
+	:hover {
+		opacity: 0.7;
+	}
 
 	span {
-		color: var(--main-color);
+		color: var(--white-color);
 	}
 `
 const FieldError = styled.p`
+	font-size: 14px;
 	color: var(--red-color);
 `
 
@@ -87,9 +86,9 @@ const TextField = ({
 				type={showPassword ? 'text' : type}
 				id={name}
 				name={name}
-				value={value}
 				onChange={(e) => handleChange(e)}
 				autoComplete={name}
+				value={value || ''}
 				{...rest}
 				style={{
 					borderColor: `var(--${error ? 'red' : 'main'}-color)`,
@@ -103,12 +102,11 @@ const TextField = ({
 					onClick={toggleShowPassword}
 					style={{
 						borderColor: `var(--${error ? 'red' : 'main'}-color)`,
+						backgroundColor: `var(--${
+							error ? 'red' : 'main'
+						}-color)`,
 					}}>
-					<span
-						className='material-icons'
-						style={{
-							color: `var(--${error ? 'red' : 'main'}-color)`,
-						}}>
+					<span className='material-icons'>
 						{showPassword ? 'visibility_off' : 'visibility'}
 					</span>
 				</FieldButton>

@@ -4,9 +4,9 @@
 /* font-family: 'Lobster', cursive; */
 
 :root {
-	--main-color: #612a7e;
+	--main-color: #a23845;
 	--white-color: #fff;
-	--red-color: #e17369;
+	--red-color: #8e8c91;
 	--success-color: #4ca333;
 	--yellow-color: #ffc400;
 	--bg-color: #070b30;
@@ -29,8 +29,14 @@ a {
 	color: var(--main-color);
 }
 
+ul {
+	padding-left: 0;
+}
+
 ul li {
 	list-style: none;
+
+	
 }
 
 p,
@@ -45,12 +51,6 @@ h4 {
 	color: var(--red-color);
 }
 
-.header {
-	width: 100%;
-	background-color: var(--main-color);
-}
-
-.logo {
-	width: 100px;
-	padding: 10px;
+::-webkit-scrollbar {
+	width: 0px; /* ширина для вертикального скролла */
 }
