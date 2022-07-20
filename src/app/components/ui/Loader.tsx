@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const LoaderBlock = styled.div`
 	width: 100%;
-	padding-top: 40vh;
+	padding-top: 30vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

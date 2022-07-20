@@ -6,6 +6,7 @@ import Login from './auth/login'
 import SignUp from './auth/signUp'
 import Client from './client'
 import Cart from './client/cart'
+import Comments from './client/comments'
 import Home from './client/home'
 import ClientOrder from './client/order'
 import Products from './client/products'
@@ -47,6 +48,10 @@ const Pages = () => {
 				<Route path='cart' element={<Cart />} />
 				<Route path='cart/send' element={<SendOrder />} />
 				<Route path='order' element={<ClientOrder />} />
+				<Route
+					path='products/comments/:productId'
+					element={<Comments />}
+				/>
 				<Route path='products/:id' element={<Products />} />
 				<Route path='*' element={<Navigate to='/' />} />
 			</Route>
