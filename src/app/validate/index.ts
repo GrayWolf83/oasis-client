@@ -203,3 +203,17 @@ export const sendOrderSchema = yup.object().shape({
 		})
 		.trim(),
 })
+
+export const addCommentSchema = yup.object().shape({
+	text: yup
+		.string()
+		.required({
+			name: 'text',
+			text: 'Поле "Отзыв" обязательно для заполнения',
+		})
+		.min(2, {
+			name: 'text',
+			text: 'Длина поля "Отзыв" не менее 2 символов',
+		})
+		.trim(),
+})

@@ -6,6 +6,7 @@ import { getCartItemsCount } from '../../store/cart'
 import { getUser } from '../../store/user'
 import AppContainer from '../ui/AppContainer'
 import AppLogo from '../ui/AppLogo'
+import CartIcon from '../ui/icons/CartIcon'
 import LinkIcon from './LinkIcon'
 import UserProfile from './UserProfile'
 
@@ -36,11 +37,9 @@ const CartIcons = styled.span`
 		opacity: 0.7;
 	}
 `
-const CartIcon = styled.span`
-	font-size: 36px;
-`
 const CartCount = styled.span`
 	font-size: 16px;
+	margin-right: 5px;
 `
 
 const Header = () => {
@@ -56,9 +55,7 @@ const Header = () => {
 					<HeaderIcons>
 						<Link to='/cart'>
 							<CartIcons>
-								<CartIcon className='material-icons'>
-									shopping_cart
-								</CartIcon>
+								<CartIcon />
 								<CartCount>{cartItemsCount}</CartCount>
 							</CartIcons>
 						</Link>

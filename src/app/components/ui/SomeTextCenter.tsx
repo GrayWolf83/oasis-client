@@ -7,6 +7,7 @@ type IProps = {
 
 const SomeText = styled.p`
 	text-align: center;
+	margin-top: 20px;
 `
 
 const SomeTextCenter = ({ text }: IProps) => {
