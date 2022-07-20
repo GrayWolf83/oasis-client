@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppReduxHooks'
 import { getIsManage, logout } from '../../store/user'
+import UserProfileIcon from '../ui/icons/UserProfileIcon'
 
 const ProfileInner = styled.div`
 	position: relative;
 `
 
 const Icon = styled.span`
-	font-size: 36px;
-	color: var(--white-color);
 	transition: all 0.3s ease-in-out;
-	margin: 10px;
 	cursor: pointer;
 
 	:hover {
@@ -54,9 +52,14 @@ const UserProfile = () => {
 
 	return (
 		<ProfileInner>
-			<Icon className='material-icons' onClick={handleClick}>
-				account_circle
+			<Icon>
+				<UserProfileIcon
+					color='#fff'
+					size='36px'
+					onClick={handleClick}
+				/>
 			</Icon>
+
 			{isOpen && (
 				<ProfileMenu>
 					<li onClick={handleClick}>

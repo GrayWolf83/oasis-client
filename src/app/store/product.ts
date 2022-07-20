@@ -72,6 +72,7 @@ const {
 
 export const loadProductsList =
 	(id: string) => async (dispatch: AppDispatch) => {
+		dispatch(productLoadingStart())
 		try {
 			const payload = await productService.getProductsList(id)
 			dispatch(productsLoaded(payload))

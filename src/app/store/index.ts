@@ -5,6 +5,7 @@ import categoriesReducer from './category'
 import productReducer from './product'
 import cartReducer from './cart'
 import orderReducer from './order'
+import commentReducer from './comment'
 
 const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
 		products: productReducer,
 		cart: cartReducer,
 		order: orderReducer,
+		comment: commentReducer,
 	},
 })
 

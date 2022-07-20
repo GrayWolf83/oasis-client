@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Category } from '../../types/category'
+import { Comment } from '../../types/comment'
 import { Order } from '../../types/order'
 import { Product } from '../../types/product'
 
 interface IProps {
-	items: Product[] | Category[] | Order[]
+	items: Product[] | Category[] | Order[] | Comment[]
 	children: React.ReactNode
 	column?: boolean
 }
